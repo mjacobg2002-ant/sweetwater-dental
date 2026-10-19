@@ -179,10 +179,10 @@ body.menu-open{overflow:hidden}
 .hero{position:relative;overflow:hidden;background:var(--navy-900)}
 .hero__bg{position:absolute;inset:0;z-index:0}
 .hero__bg img,.hero__bg video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(13,42,48,.92) 0%,rgba(13,42,48,.6) 45%,rgba(13,42,48,.3) 100%),linear-gradient(0deg,rgba(13,42,48,.75),transparent 45%)}
+.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(13,42,48,.9) 0%,rgba(13,42,48,.55) 44%,rgba(13,42,48,.2) 100%),linear-gradient(180deg,rgba(13,42,48,.6),transparent 16%),linear-gradient(0deg,rgba(7,26,30,.8) 0%,rgba(7,26,30,.42) 14%,transparent 34%)}
 .hero__fallback{position:absolute;inset:0;background:radial-gradient(70% 70% at 80% 10%,rgba(224,165,58,.22),transparent 55%),radial-gradient(85% 85% at 12% 92%,rgba(35,180,194,.4),transparent 60%),linear-gradient(150deg,#13575f 0%,var(--navy-900) 62%,#081c20 115%)}
-.hero__in{position:relative;z-index:2;max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter);min-height:88vh;display:flex;align-items:center}
-.hero__copy{max-width:640px;color:#fff;padding:8rem 0 4rem}
+.hero__in{position:relative;z-index:2;max-width:var(--wrap);margin:0 auto;padding:0 var(--gutter);min-height:88vh;display:flex;flex-direction:column;justify-content:space-between}
+.hero__copy{max-width:640px;color:#fff;padding:7.5rem 0 1.4rem}
 .hero__badge{display:inline-flex;align-items:center;gap:.5rem;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);padding:.45rem .9rem;border-radius:999px;font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;backdrop-filter:blur(4px)}
 .hero__badge svg{width:14px;height:14px;color:var(--champagne)}
 .hero h1{font-size:clamp(2.5rem,6vw,4.7rem);font-weight:700;color:#fff;margin:1.4rem 0 0;line-height:1.04;text-shadow:0 2px 30px rgba(7,26,30,.5)}
@@ -195,11 +195,11 @@ body.menu-open{overflow:hidden}
 .hero__cred svg{width:16px;height:16px;color:var(--champagne)}
 .hero__vsep{width:1px;height:20px;background:rgba(255,255,255,.3)}
 
-/* ===== STATS BAND ===== */
-.stats{position:relative;overflow:hidden;background:var(--brand-gradient)}
-.stats::before{content:"";position:absolute;inset:0;opacity:.4;background:radial-gradient(80% 120% at 0% 0%,rgba(255,255,255,.14),transparent 55%)}
-.stats__grid{position:relative;max-width:var(--wrap);margin:0 auto;padding:3rem var(--gutter);display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
-.stat{text-align:center;color:#fff}
+/* ===== STATS (float at the bottom of the hero, all layouts) ===== */
+.stats{position:relative;z-index:2;width:100%;background:transparent;padding-bottom:clamp(1.25rem,3.5vh,2.25rem)}
+.stats::before{content:none}
+.stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem 2rem;max-width:none;margin:0;padding:0}
+.stat{text-align:center;color:#fff;text-shadow:0 2px 4px rgba(7,26,30,.6),0 4px 20px rgba(7,26,30,.75)}
 .stat .v{font-family:var(--serif);font-size:clamp(2rem,4vw,2.9rem);font-weight:700;line-height:1}
 .stat .v span{color:var(--champagne)}
 .stat .l{margin-top:.6rem;font-size:.88rem;color:rgba(255,255,255,.82);font-weight:500}
@@ -355,7 +355,7 @@ body.menu-open{overflow:hidden}
 }
 @media (max-width:520px){
   .svc-grid,.gal-grid,.testi-grid,.steps,.exp-grid{grid-template-columns:1fr}
-  .stats__grid{grid-template-columns:1fr 1fr;padding:1rem var(--gutter);gap:.4rem 1rem}
+  .stats__grid{grid-template-columns:1fr 1fr;padding:0;gap:.5rem 1rem}
   .stat .v{font-size:1.7rem}
   .stat .l{margin-top:.2rem;font-size:.72rem}
   .footer__nav{grid-template-columns:1fr 1fr}
@@ -424,8 +424,10 @@ body.menu-open{overflow:hidden}
 <section class="hero">
   <div class="hero__bg">
     <div class="hero__fallback"></div>
-    <img src="assets/img/hero.jpg" alt="" aria-hidden="true" onerror="this.style.display='none'" />
-    <!-- <video autoplay muted loop playsinline poster="assets/img/hero.jpg" aria-hidden="true"><source src="assets/img/hero.mp4" type="video/mp4"></video> -->
+    <picture>
+      <source media="(max-width:760px)" srcset="assets/img/hero-mobile.jpg" />
+      <img src="assets/img/hero.jpg" alt="" aria-hidden="true" onerror="this.style.display='none'" />
+    </picture>
   </div>
   <div class="hero__in">
     <div class="hero__copy">
@@ -448,17 +450,16 @@ body.menu-open{overflow:hidden}
         <span class="hero__cred"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5 17 22l-5-3-5 3 1.5-8.5"/></svg>Now welcoming new patients of all ages — grand opening October 27, 2026</span>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ===== STATS BAND ===== -->
-<section class="stats" aria-label="Practice at a glance">
-  <div class="stats__grid">
-    <!-- EDIT: your real numbers -->
-    <div class="stat"><div class="v">3<span></span></div><div class="l">Caring Dentists</div></div>
-    <div class="stat"><div class="v">All<span> Ages</span></div><div class="l">Family-Friendly Care</div></div>
-    <div class="stat"><div class="v">2026<span></span></div><div class="l">Now Open in Sweetwater</div></div>
-    <div class="stat"><div class="v">New<span> Patients</span></div><div class="l">Always Welcome</div></div>
+    <!-- Stats float over the bottom of the hero image on every layout -->
+    <div class="stats" aria-label="Practice at a glance">
+      <div class="stats__grid">
+        <!-- EDIT: your real numbers -->
+        <div class="stat"><div class="v">3<span></span></div><div class="l">Caring Dentists</div></div>
+        <div class="stat"><div class="v">All<span> Ages</span></div><div class="l">Family-Friendly Care</div></div>
+        <div class="stat"><div class="v">2026<span></span></div><div class="l">Now Open in Sweetwater</div></div>
+        <div class="stat"><div class="v">New<span> Patients</span></div><div class="l">Always Welcome</div></div>
+      </div>
+    </div>
   </div>
 </section>
 
